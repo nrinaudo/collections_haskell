@@ -10,7 +10,7 @@ instance Set BinaryTree where
   isEmpty Leaf = True
   isEmpty _    = False
 
-  contains a Leaf = False
+  contains _ Leaf = False
   contains a (Node v l r)
     | a < v     = contains a l
     | a > v     = contains a r
