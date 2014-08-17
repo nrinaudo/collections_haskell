@@ -1,0 +1,25 @@
+name:          collections
+version:       0.1.0
+description:   Purely Functional Collections
+copyright:     (c) 2014 Nicolas Rinaudo
+author:        Nicolas Rinaudo
+build-type:    Simple
+cabal-version: >= 1.8
+
+library
+  hs-source-dirs:  src/main
+  exposed-modules: Data.Collection.Set, Data.Collection.Stack, Data.Collection.BinaryTree
+  build-depends:   base
+  ghc-options:     -Wall -fno-warn-missing-signatures -fwarn-incomplete-patterns -fno-warn-name-shadowing
+  ghc-options:     -Wall
+
+
+test-suite collection-tests
+  type:              exitcode-stdio-1.0
+  hs-source-dirs:    src/test
+  main-is:           Tests.hs
+  build-depends:     collections,
+                     base,
+                     QuickCheck,
+                     test-framework,
+                     test-framework-quickcheck2
