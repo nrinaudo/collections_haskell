@@ -8,7 +8,8 @@ cabal-version: >= 1.8
 
 library
   hs-source-dirs:  src/main
-  exposed-modules: Data.Collection.Set, Data.Collection.Stack, Data.Collection.BinaryTree
+  exposed-modules: Data.Collection.Set, Data.Collection.Stack, Data.Collection.BinaryTree,
+                   Data.Collection.Heap, Data.Collection.LeftistTree
   build-depends:   base
   ghc-options:     -Wall -fno-warn-missing-signatures -fwarn-incomplete-patterns -fno-warn-name-shadowing
   ghc-options:     -Wall
