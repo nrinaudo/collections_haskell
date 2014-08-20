@@ -10,14 +10,14 @@ instance Set BinaryTree where
   isEmpty Leaf = True
   isEmpty _    = False
 
-  contains _ Leaf = False
-  contains a (Node v l r)
-    | a < v     = contains a l
-    | a > v     = contains a r
+  contains Leaf _         = False
+  contains (Node v l r) a
+    | a < v     = contains l a
+    | a > v     = contains r a
     | otherwise = True
 
-  insert a Leaf = Node a Leaf Leaf
-  insert a s@(Node v l r)
-    | a < v = Node v (insert a l) r
-    | a > v = Node v l (insert a r)
+  insert Leaf a = Node a Leaf Leaf
+  insert s@(Node v l r) a
+    | a < v = Node v (insert l a) r
+    | a > v = Node v l (insert r a)
     | otherwise = s
