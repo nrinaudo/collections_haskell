@@ -1,13 +1,13 @@
 {-# LANGUAGE ExistentialQuantification #-}
 
-module Data.Collection.BinaryTree (BinaryTree(Node, Leaf)) where
+module Data.Collection.BinarySearchTree (BinarySearchTree(Node, Leaf)) where
 
 import Data.Collection.Set
 
-data BinaryTree a = Ord a => Node a (BinaryTree a) (BinaryTree a)
-                  | Ord a => Leaf
+data BinarySearchTree a = Ord a => Node a (BinarySearchTree a) (BinarySearchTree a)
+                        | Ord a => Leaf
 
-instance Set BinaryTree where
+instance Set BinarySearchTree where
   isEmpty Leaf = True
   isEmpty _    = False
 
