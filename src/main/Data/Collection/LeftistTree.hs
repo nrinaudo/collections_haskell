@@ -1,16 +1,20 @@
+{-# LANGUAGE ExistentialQuantification #-}
+
 module Data.Collection.LeftistTree (LeftistTree (Leaf, Node)) where
 
 import Data.Collection.Heap
 
-data LeftistTree a = Leaf | Node a Int (LeftistTree a) (LeftistTree a)
+data LeftistTree a = Ord a => Node a Int (LeftistTree a) (LeftistTree a)
+                   | Ord a => Leaf
 
 instance Heap LeftistTree where
-  empty = Leaf
-
   isEmpty Leaf = True
   isEmpty _    = False
 
-  insert t a = merge t (Node a 1 Leaf Leaf)
+  -- Not the cleanest, I'd much rather use merge directly, but we need to explicitly reference Leaf and Node to bring
+  -- the Ord a class constraint in scope.
+  insert Leaf             a = singleton a
+  insert t@(Node _ _ _ _) a = merge t (singleton a)
 
   min Leaf           = Nothing
   min (Node a _ _ _) = Just a
@@ -18,6 +22,9 @@ instance Heap LeftistTree where
   deleteMin Leaf           = error "Leaf.deleteMin"
   deleteMin (Node _ _ l r) = merge l r
 
+
+singleton :: Ord a => a -> LeftistTree a
+singleton a = Node a 1 Leaf Leaf
 
 rank :: LeftistTree a -> Int
 rank Leaf           = 0
