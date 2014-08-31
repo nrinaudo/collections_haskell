@@ -2,7 +2,9 @@
 
 module Data.Collection.LeftistTree (LeftistTree (Leaf, Node)) where
 
-import Data.Collection.Heap
+import Data.Collection.PriorityQueue
+
+
 
 -- LeftistTree ---------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------
@@ -29,23 +31,23 @@ merge t1@(Node a1 _ l1 r1) t2@(Node a2 _ l2 r2)
 -- Creates a leftist tree with the specified value and left and right children.
 tag :: Ord a => a -> LeftistTree a -> LeftistTree a -> LeftistTree a
 tag a l r = if   rank l > rank r
-            then Node a ((rank l) + 1) l r
-            else Node a ((rank r) + 1) r l
+            then Node a (rank l + 1) l r
+            else Node a (rank r + 1) r l
 
 
 
--- Heap instance -------------------------------------------------------------------------------------------------------
+-- Priority Queue instance ---------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------
--- Leftisttree-specific implementation of Heap.
-instance Heap LeftistTree where
-  type HeapEntry LeftistTree a = Ord a
+-- Leftisttree-specific implementation of PriorityQueue.
+instance PriorityQueue LeftistTree where
+  type PQEntry LeftistTree a = Ord a
 
   empty = Leaf
 
   isEmpty Leaf = True
   isEmpty _    = False
 
-  insert h a = merge h (singleton a)
+  insert p a = merge p (singleton a)
 
   min Leaf           = Nothing
   min (Node a _ _ _) = Just a

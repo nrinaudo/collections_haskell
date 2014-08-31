@@ -1,6 +1,6 @@
 module Data.Collection.LeftistTreeTests (leftistTreeTests) where
 
 import Data.Collection.LeftistTree
-import Data.Collection.HeapTests
+import Data.Collection.PriorityQueueTests
 
-leftistTreeTests = heapTests (Leaf :: LeftistTree Int) "Data.Collection.LeftistTreeTree"
+leftistTreeTests = priorityQueueTests (Leaf :: LeftistTree Int) "Data.Collection.LeftistTreeTree"

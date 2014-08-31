@@ -9,7 +9,7 @@ cabal-version: >= 1.8
 library
   hs-source-dirs:  src/main
   exposed-modules: Data.Collection.Set, Data.Collection.Stack, Data.Collection.BinarySearchTree,
-                   Data.Collection.Heap, Data.Collection.LeftistTree, Data.Collection.BinomialHeap
+                   Data.Collection.PriorityQueue, Data.Collection.LeftistTree, Data.Collection.BinomialHeap
   build-depends:   base,
                    ghc-prim
   ghc-options:     -Wall -fno-warn-missing-signatures -fwarn-incomplete-patterns -fno-warn-name-shadowing

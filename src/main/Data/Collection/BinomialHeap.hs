@@ -2,7 +2,7 @@
 
 module Data.Collection.BinomialHeap where
 
-import Data.Collection.Heap
+import Data.Collection.PriorityQueue
 
 
 -- Binomial Heap -------------------------------------------------------------------------------------------------------
@@ -15,15 +15,18 @@ insTree t ts@(t' : ts')
   | rank t < rank t' = t : ts
   | otherwise        = insTree (link t t') ts'
 
-instance Heap BinomialHeap where
-  type HeapEntry BinomialHeap  a = Ord a
+
+instance PriorityQueue BinomialHeap where
+  type PQEntry BinomialHeap  a = Ord a
+
   empty = BinomialHeap []
 
-  isEmpty = error "todo"
+  isEmpty (BinomialHeap []) = True
+  isEmpty _                 = False
 
   insert (BinomialHeap ts) a = BinomialHeap $ insTree (singleton a) ts
 
-  min     = error "todo"
+  min       = error "todo"
   deleteMin = error "todo"
 
 
