@@ -8,13 +8,12 @@ data LeftistTree a = Ord a => Node a Int (LeftistTree a) (LeftistTree a)
                    | Ord a => Leaf
 
 instance Heap LeftistTree where
+  empty = Leaf
+
   isEmpty Leaf = True
   isEmpty _    = False
 
-  -- Not the cleanest, I'd much rather use merge directly, but we need to explicitly reference Leaf and Node to bring
-  -- the Ord a class constraint in scope.
-  insert Leaf             a = singleton a
-  insert t@(Node _ _ _ _) a = merge t (singleton a)
+  insert h a = merge h (singleton a)
 
   min Leaf           = Nothing
   min (Node a _ _ _) = Just a

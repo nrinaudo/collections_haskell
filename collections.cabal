@@ -10,7 +10,8 @@ library
   hs-source-dirs:  src/main
   exposed-modules: Data.Collection.Set, Data.Collection.Stack, Data.Collection.BinarySearchTree,
                    Data.Collection.Heap, Data.Collection.LeftistTree
-  build-depends:   base
+  build-depends:   base,
+                   ghc-prim
   ghc-options:     -Wall -fno-warn-missing-signatures -fwarn-incomplete-patterns -fno-warn-name-shadowing
   ghc-options:     -Wall
 

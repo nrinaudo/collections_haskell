@@ -1,15 +1,20 @@
+{-# LANGUAGE TypeFamilies, ConstraintKinds #-}
+
 module Data.Collection.Stack where
 
--- Contract for stacks
-class Stack f where
-  empty   :: f a
-  isEmpty :: f a -> Bool
+import GHC.Prim
 
-  push :: f a -> a -> f a
-  top :: f a -> Maybe a
-  pop :: f a -> f a
+class Stack s where
+  type StackEntry s a :: Constraint
+  type StackEntry s a = ()
 
--- Marks lists as stacks.
+  empty   :: StackEntry s a => s a
+  isEmpty :: s a -> Bool
+
+  push    :: StackEntry s a => s a -> a -> s a
+  top     :: s a -> Maybe a
+  pop     :: s a -> s a
+
 instance Stack [] where
   empty       = []
   isEmpty     = null
