@@ -49,8 +49,8 @@ instance Heap LeftistTree where
 
   insert p a = merge p (singleton a)
 
-  min Leaf           = Nothing
-  min (Node a _ _ _) = Just a
+  findMin Leaf           = Nothing
+  findMin (Node a _ _ _) = Just a
 
   deleteMin Leaf           = error "Leaf.deleteMin"
   deleteMin (Node _ _ l r) = merge l r

@@ -26,13 +26,13 @@ prop_emptyIsEmpty :: Heap h => h a -> Bool
 prop_emptyIsEmpty = isEmpty
 
 prop_emptyHasNoMin :: Heap h => h a -> Bool
-prop_emptyHasNoMin = isNothing . Data.Collection.Heap.min
+prop_emptyHasNoMin = isNothing . findMin
 
 prop_emptyInsert :: (Heap h, Eq a, HeapEntry h a) => h a -> a -> Bool
-prop_emptyInsert h a = Data.Collection.Heap.min (insert h a) == Just a
+prop_emptyInsert h a = findMin (insert h a) == Just a
 
 isSorted :: (Heap h, Ord a) => h a -> a -> Bool
-isSorted p prev = case Data.Collection.Heap.min p of
+isSorted p prev = case findMin p of
   Just a  -> if prev <= a
              then isSorted (deleteMin p) a
              else False

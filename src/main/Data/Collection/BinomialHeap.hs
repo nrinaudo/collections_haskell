@@ -26,7 +26,7 @@ instance Heap BinomialHeap where
 
   insert (BinomialHeap ts) a = BinomialHeap $ insTree (singleton a) ts
 
-  min       = error "todo"
+  findMin       = error "todo"
   deleteMin = error "todo"
 
 

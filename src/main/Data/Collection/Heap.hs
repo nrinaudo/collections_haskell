@@ -16,7 +16,7 @@ class Heap h where
   isEmpty :: h a -> Bool
 
   -- Returns the minimum element of a heap, or Nothing if empty.
-  min :: h a -> Maybe a
+  findMin :: h a -> Maybe a
 
   -- Removes the minimum element of a heap (fails if empty).
   deleteMin :: h a -> h a
