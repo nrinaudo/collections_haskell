@@ -2,7 +2,7 @@
 
 module Data.Collection.LeftistTree (LeftistTree (Leaf, Node)) where
 
-import Data.Collection.PriorityQueue
+import Data.Collection.Heap
 
 
 
@@ -36,11 +36,11 @@ tag a l r = if   rank l > rank r
 
 
 
--- Priority Queue instance ---------------------------------------------------------------------------------------------
+-- Heap instance -------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------
--- Leftisttree-specific implementation of PriorityQueue.
-instance PriorityQueue LeftistTree where
-  type PQEntry LeftistTree a = Ord a
+-- Leftisttree-specific implementation of Heap.
+instance Heap LeftistTree where
+  type HeapEntry LeftistTree a = Ord a
 
   empty = Leaf
 

@@ -2,7 +2,7 @@
 
 module Data.Collection.BinomialHeap where
 
-import Data.Collection.PriorityQueue
+import Data.Collection.Heap
 
 
 -- Binomial Heap -------------------------------------------------------------------------------------------------------
@@ -16,8 +16,8 @@ insTree t ts@(t' : ts')
   | otherwise        = insTree (link t t') ts'
 
 
-instance PriorityQueue BinomialHeap where
-  type PQEntry BinomialHeap  a = Ord a
+instance Heap BinomialHeap where
+  type HeapEntry BinomialHeap  a = Ord a
 
   empty = BinomialHeap []
 
