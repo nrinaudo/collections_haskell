@@ -2,7 +2,7 @@ module Main where
 
 import Test.Framework (Test, defaultMain)
 
-import Data.Collection.LeftistTreeTests
+import Data.Collection.LeftistHeapTests
 import Data.Collection.BinarySearchTreeTests
 import Data.Collection.StackTests
 
@@ -10,4 +10,4 @@ main :: IO ()
 main = defaultMain tests
 
 tests :: [Test]
-tests = [binarySearchTreeTests, listStackTests, leftistTreeTests]
+tests = [binarySearchTreeTests, listStackTests, leftistHeapTests]
