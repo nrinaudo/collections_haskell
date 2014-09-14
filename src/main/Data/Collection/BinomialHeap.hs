@@ -1,13 +1,13 @@
-{-# LANGUAGE TypeFamilies, MultiParamTypeClasses, FlexibleInstances, ExistentialQuantification #-}
+{-# LANGUAGE TypeFamilies, FlexibleInstances, ExistentialQuantification #-}
 
-module Data.Collection.BinomialHeap where
+module Data.Collection.BinomialHeap(BinomialHeap) where
 
 import Data.Collection.Heap
 
 
 -- Binomial Heap -------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------
-newtype BinomialHeap a = BinomialHeap [BinomialTree a]
+data BinomialHeap a = Ord a => BinomialHeap [BinomialTree a]
 
 insTree :: BinomialTree a -> [BinomialTree a] -> [BinomialTree a]
 insTree t [] = [t]
@@ -16,8 +16,23 @@ insTree t ts@(t' : ts')
   | otherwise        = insTree (link t t') ts'
 
 
+merge :: [BinomialTree a] -> [BinomialTree a] -> [BinomialTree a]
+merge [] h2 = h2
+merge h1 [] = h1
+merge as1@(h1 : t1) as2@(h2 : t2)
+  | rank h2 < rank h1 = h1 : merge t1 as2
+  | rank h1 < rank h2 = h2 : merge t2 as1
+  | otherwise         = insTree (link h1 h2) (merge t1 t2)
+
+removeMinTree :: Ord a => [BinomialTree a] -> (Maybe (BinomialTree a), [BinomialTree a])
+removeMinTree []    = (Nothing, [])
+removeMinTree [a]   = (Just a, [])
+removeMinTree (h:t) = let ((Just m), t') = removeMinTree t in
+  if root h < root m then (Just h, t)
+  else                    (Just m, h:t')
+
 instance Heap BinomialHeap where
-  type HeapEntry BinomialHeap  a = Ord a
+  type HeapEntry BinomialHeap a = Ord a
 
   empty = BinomialHeap []
 
@@ -26,8 +41,11 @@ instance Heap BinomialHeap where
 
   insert (BinomialHeap ts) a = BinomialHeap $ insTree (singleton a) ts
 
-  findMin       = error "todo"
-  deleteMin = error "todo"
+  findMin (BinomialHeap as) = let (m, _) = removeMinTree as in fmap root m
+
+  deleteMin (BinomialHeap as) = case removeMinTree as of
+    (Nothing, _)                        -> error "empty.deleteMin"
+    ((Just (BinomialTree _ _ r1),  r2)) -> BinomialHeap $ merge (reverse r1) r2
 
 
 
