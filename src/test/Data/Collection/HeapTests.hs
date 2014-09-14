@@ -38,6 +38,11 @@ isSorted p prev = case findMin p of
              else False
   Nothing -> True
 
+size :: (Heap h) => h a -> Int
+size h = case findMin h of
+  Just a  -> 1 + size (deleteMin h)
+  Nothing -> 0
+
 prop_sortedUnfold :: (Heap h, HeapEntry h a, Ord a) => h a -> NonEmptyList a -> Bool
 prop_sortedUnfold h (NonEmpty as) = let heap = createHeap h as in
-  isSorted (deleteMin heap) (head $ sort as)
+  isSorted (deleteMin heap) (head $ sort as) && size heap == length as
