@@ -25,12 +25,12 @@ merge :: (Ord a) => LeftistHeap a -> LeftistHeap a -> LeftistHeap a
 merge Leaf t    = t
 merge t    Leaf = t
 merge t1@(Node a1 _ l1 r1) t2@(Node a2 _ l2 r2)
-  | a1 < a2   = tag a1 l1 (merge r1 t2)
-  | otherwise = tag a2 (merge t1 l2) r2
+  | a1 < a2   = sortRank a1 l1 (merge r1 t2)
+  | otherwise = sortRank a2 (merge t1 l2) r2
 
 -- Creates a leftist tree with the specified value and left and right children.
-tag :: Ord a => a -> LeftistHeap a -> LeftistHeap a -> LeftistHeap a
-tag a l r = if   rank l > rank r
+sortRank :: Ord a => a -> LeftistHeap a -> LeftistHeap a -> LeftistHeap a
+sortRank a l r = if   rank l > rank r
             then Node a (rank l + 1) l r
             else Node a (rank r + 1) r l
 
